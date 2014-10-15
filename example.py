@@ -7,7 +7,7 @@
 #-
 #-------------------------------------------------------------------------------
 #-
-#-    Filename: pcnt.py
+#-    Filename: example.py
 #-
 #-    Author:   Stephen Bates
 #-    Project:  twitter-wordcloud
@@ -23,7 +23,7 @@
 import optparse
 import twitter
 import json
-from pprint import pprint
+import pywordcloud
 
 class OAuth():
     consumer_key        = ''
@@ -75,6 +75,27 @@ if __name__=="__main__":
                            result_type='mixed',
                            include_entities=None)
 
-    if options.verbose:
-        for res in search:
+    text=[]    
+    for res in search:
+        text.append(res.text)
+        if options.verbose:
             print res.text
+
+    text = u''.join(text).encode('utf-8')
+    if verbose:
+        print text
+    
+    pywordcloud.create(text,
+                       outfile="output.html",
+                       uppercase=False,
+                       showfreq=False,
+                       frequency=100,
+                       removepunct = True,
+                       minfont = 1.5,
+                       maxfont = 6,
+                       hovercolor="green",
+                       showborder=False,
+                       fontfamily='calibri',
+                       width="1000px",
+                       height="400px")
+    
